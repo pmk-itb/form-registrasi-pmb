@@ -1,12 +1,17 @@
-# Registration Form for PMB PMK ITB
+# Vue 3 + Typescript + Vite
 
-This is an SPA built with **Vue.js 2** and **Vuetify**. This SPA provides registration form for new ITB's students who want to join PMK ITB as a member.
+This template should help get you started developing with Vue 3 and Typescript in Vite.
 
-## Prerequisites
+## Recommended IDE Setup
 
-- Node.js >= 12 (tested on v14.16.1)
-- Yarn >= v1.22
+[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
 
-## LICENSE
+## Type Support For `.vue` Imports in TS
 
-[MIT](https://github.com/pmk-itb/blob/main/LICENSE)
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+
+### If Using Volar
+
+Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+Make sure that your Typescript version is from VSCode's version.
+Just run `Typescript: Select Typescript Version...` -> `Use VSCode's Version`
