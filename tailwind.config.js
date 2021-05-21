@@ -3,7 +3,14 @@ module.exports = {
   purge: ['./index.html', './src/**/*.{ts,vue}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      textColor: {
+        'blue-thank-you': '#4D76B7',
+      },
+      fontFamily: {
+        roboto: ['Roboto'],
+      },
+    },
   },
   variants: {
     extend: {},
