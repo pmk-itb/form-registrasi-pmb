@@ -3,6 +3,7 @@
   <img class="logo" src="https://bit.ly/fcc-relaxing-cat" alt="Logo PMB PMK ITB 2021" />
   <div class="circle1"></div>
   <div class="circle2"></div>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
 </template>
 
 <style>
