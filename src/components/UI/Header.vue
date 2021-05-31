@@ -1,58 +1,55 @@
 <template>
-  <h1 class="title">PMB PMK ITB 2021</h1>
   <img class="logo" src="https://bit.ly/fcc-relaxing-cat" alt="Logo PMB PMK ITB 2021" />
-  <div class="circle1"></div>
-  <div class="circle2"></div>
+  <h1 class="title">PMB PMK ITB 2021</h1>
+  <div class="circle-container">
+    <div class="circle2"></div>
+    <div class="circle1"></div>
+  </div>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
 </template>
 
 <style>
 .title {
-  position: absolute;
-  width: 427px;
-  height: 56px;
-  left: 506px;
-  top: 90px;
-
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 36px;
-  line-height: 56px;
+  font-size: 2.5rem;
+  line-height: 5rem;
   text-align: center;
-
   color: #4d76b7;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  left: 675px;
-  top: 50px;
-
   background: #c4c4c4;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  height: 3.75rem;
+  width: 3.75rem;
+}
+
+.circle-container {
+  display: flex;
+  height: 200px;
+  justify-content: flex-end;
+  padding: 6.25rem 3.125rem 0rem 0rem;
 }
 
 .circle1 {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  left: 1000px;
-  top: 350px;
+  width: 21rem;
+  height: 21rem;
   border-radius: 50%;
-
   background: linear-gradient(223.16deg, #ffdc95 24.25%, #afceff 85.77%, #ffe5af 85.77%);
 }
 
 .circle2 {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  left: 800px;
-  top: 540px;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: 50%;
-
+  margin-top: 15.625rem;
   background: linear-gradient(61.74deg, #4d76b7 1.11%, #95beff 68.71%);
 }
 </style>
