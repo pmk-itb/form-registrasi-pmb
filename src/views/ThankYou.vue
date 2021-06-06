@@ -1,3 +1,7 @@
 <template>
-  <h1>Thank You</h1>
+  <Header />
 </template>
+
+<script setup lang="ts">
+import Header from '../components/UI/Header.vue';
+</script>
