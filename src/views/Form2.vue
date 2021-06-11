@@ -2,78 +2,63 @@
   <div id="form-page" class="flex flex-col items-center space-y-10 md:space-y-20">
     <Header />
     <FloatingBox2>
-      <h2 class="asalDaerah">Asal Daerah</h2>
-      <div class="container">
-        <div class="container-left">
-          <label for="prov"> PROVINSI </label>
-          <select id="prov" name="prov">
-            <option value="" disabled selected hidden></option>
-            <option value="provinsi1">Provinsi 1</option>
-            <option value="provinsi2">Provinsi 2</option>
-            <option value="provinsi3">Provinsi 3</option>
-          </select>
-          <label for="kota"> KOTA </label>
-          <select id="kota" name="kota">
-            <option value="" disabled selected hidden></option>
-            <option value="kota1">Kota 1</option>
-            <option value="kota2">Kota 2</option>
-            <option value="kota3">Kota 3</option>
-          </select>
-          <label for="sekolah"> SEKOLAH </label>
-          <select id="sekolah" name="sekolah">
-            <option value="" disabled selected hidden></option>
-            <option value="sekolah1">Sekolah 1</option>
-            <option value="sekolah2">Sekolah 2</option>
-            <option value="sekolah3">Sekolah 3</option>
-          </select>
-        </div>
-        <div class="container-right">
-          <label for="gereja"> GEREJA </label>
-          <select id="gereja" name="gereja">
-            <option value="" disabled selected hidden></option>
-            <option value="gereja1">Gereja 1</option>
-            <option value="gereja2">Gereja 2</option>
-            <option value="gereja3">Gereja 3</option>
-          </select>
-        </div>
-      </div>
-      <div class="container2">
-        <div class="container-left">
-          <a class="back" href=""> &lt; Back </a>
-        </div>
-        <div class="container-right">
-          <button class="submit" type="submit">Save & Continue</button>
-        </div>
-      </div>
+      <h2 class="font-roboto font-bold text-2xl leading-3 text-blue-primary">Asal Daerah</h2>
+      <FormContainer>
+        <FormContainerLeft>
+          <form>
+            <label for="prov"> PROVINSI </label>
+            <select id="prov" name="prov">
+              <option value="" disabled selected hidden></option>
+              <option value="provinsi1">Provinsi 1</option>
+              <option value="provinsi2">Provinsi 2</option>
+              <option value="provinsi3">Provinsi 3</option>
+            </select>
+            <label for="kota"> KOTA </label>
+            <select id="kota" name="kota">
+              <option value="" disabled selected hidden></option>
+              <option value="kota1">Kota 1</option>
+              <option value="kota2">Kota 2</option>
+              <option value="kota3">Kota 3</option>
+            </select>
+            <label for="sekolah"> SEKOLAH </label>
+            <select id="sekolah" name="sekolah">
+              <option value="" disabled selected hidden></option>
+              <option value="sekolah1">Sekolah 1</option>
+              <option value="sekolah2">Sekolah 2</option>
+              <option value="sekolah3">Sekolah 3</option>
+            </select>
+          </form>
+        </FormContainerLeft>
+        <FormContainerRight>
+          <form>
+            <label for="gereja"> GEREJA </label>
+            <select id="gereja" name="gereja">
+              <option value="" disabled selected hidden></option>
+              <option value="gereja1">Gereja 1</option>
+              <option value="gereja2">Gereja 2</option>
+              <option value="gereja3">Gereja 3</option>
+            </select>
+          </form>
+        </FormContainerRight>
+      </FormContainer>
+      <div class="h-6"></div>
+      <FormContainer>
+        <FormContainerLeft>
+          <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+        </FormContainerLeft>
+        <FormContainerRight>
+          <button class="sc" type="submit">Save & Continue</button>
+        </FormContainerRight>
+      </FormContainer>
     </FloatingBox2>
     <Footer />
   </div>
 </template>
 
 <style>
-.asalDaerah {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 1.4rem;
-  line-height: 0.5rem;
+.sc {
   color: #4d76b7;
-}
-
-.back {
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: #4d76b7;
-}
-
-.back:hover {
-  font-size: 0.77rem;
-  text-decoration: underline;
-}
-
-.submit {
-  color: #4d76b7;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: bold;
   border: 0.188rem solid #4d76b7;
   background: white;
@@ -81,34 +66,8 @@
   height: 1.5rem;
 }
 
-.submit:hover {
+.sc:hover {
   border: 0.2rem solid #91b1e2;
-}
-
-.container {
-  height: 200px;
-  font-family: Roboto;
-  letter-spacing: 0.1rem;
-  font-size: 0.8rem;
-  color: #5b5b5b;
-  text-transform: uppercase;
-}
-
-.container-left {
-  height: 100%;
-  width: 66%;
-  float: left;
-}
-
-.container-right {
-  height: 100%;
-  width: 34%;
-  float: right;
-}
-
-.container2 {
-  height: 2rem;
-  width: 100%;
 }
 
 select {
@@ -127,4 +86,7 @@ label {
 import Header from '../components/UI/Header.vue';
 import Footer from '../components/UI/Footer.vue';
 import FloatingBox2 from '../components/UI/FloatingBox2.vue';
+import FormContainer from '../components/UI/FormContainer.vue';
+import FormContainerLeft from '../components/UI/FormContainerLeft.vue';
+import FormContainerRight from '../components/UI/FormContainerRight.vue';
 </script>
