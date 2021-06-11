@@ -6,21 +6,21 @@
       <FormContainer>
         <FormContainerLeft>
           <form>
-            <label for="prov"> PROVINSI </label>
+            <label class="text-left block mt-6 mb-2" for="prov"> PROVINSI </label>
             <select id="prov" name="prov">
               <option value="" disabled selected hidden></option>
               <option value="provinsi1">Provinsi 1</option>
               <option value="provinsi2">Provinsi 2</option>
               <option value="provinsi3">Provinsi 3</option>
             </select>
-            <label for="kota"> KOTA </label>
+            <label class="text-left block mt-6 mb-2" for="kota"> KOTA </label>
             <select id="kota" name="kota">
               <option value="" disabled selected hidden></option>
               <option value="kota1">Kota 1</option>
               <option value="kota2">Kota 2</option>
               <option value="kota3">Kota 3</option>
             </select>
-            <label for="sekolah"> SEKOLAH </label>
+            <label class="text-left block mt-6 mb-2" for="sekolah"> SEKOLAH </label>
             <select id="sekolah" name="sekolah">
               <option value="" disabled selected hidden></option>
               <option value="sekolah1">Sekolah 1</option>
@@ -31,7 +31,7 @@
         </FormContainerLeft>
         <FormContainerRight>
           <form>
-            <label for="gereja"> GEREJA </label>
+            <label class="text-left block mt-6 mb-2" for="gereja"> GEREJA </label>
             <select id="gereja" name="gereja">
               <option value="" disabled selected hidden></option>
               <option value="gereja1">Gereja 1</option>
@@ -56,6 +56,11 @@
 </template>
 
 <style>
+select {
+  width: 95%;
+  height: 1.6rem;
+}
+
 .sc {
   color: #4d76b7;
   font-size: 0.65rem;
@@ -63,22 +68,11 @@
   border: 0.188rem solid #4d76b7;
   background: white;
   width: 8rem;
-  height: 1.5rem;
+  height: 1.6rem;
 }
 
 .sc:hover {
   border: 0.2rem solid #91b1e2;
-}
-
-select {
-  width: 95%;
-  height: 1.4rem;
-}
-
-label {
-  text-align: left;
-  display: block;
-  margin: 1rem 0rem 0.1rem 0rem;
 }
 </style>
 

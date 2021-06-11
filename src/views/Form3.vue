@@ -5,13 +5,13 @@
       <FormContainer>
         <FormContainerLeft>
           <form>
-            <label for="pktb"> NAMA PKTB </label>
+            <label class="text-left block mt-6 mb-2" for="pktb"> NAMA PKTB </label>
             <input id="pktb" type="text" name="pktb" />
           </form>
         </FormContainerLeft>
         <FormContainerRight>
           <form>
-            <label for="pktb"> NAMA KTB </label>
+            <label class="text-left block mt-6 mb-2" for="ktb"> NAMA KTB </label>
             <input id="ktb" type="text" name="ktb" />
           </form>
         </FormContainerRight>
@@ -39,22 +39,16 @@
   border: 0.188rem solid #4d76b7;
   background: #4d76b7;
   width: 8rem;
-  height: 1.5rem;
+  height: 1.6rem;
 }
 
 .submit:hover {
   border: 0.2rem solid #91b1e2;
 }
 
-input {
+input[type='text'] {
   width: 95%;
-  height: 1.4rem;
-}
-
-label {
-  text-align: left;
-  display: block;
-  margin: 1rem 0rem 0.1rem 0rem;
+  height: 1.6rem;
 }
 </style>
 
