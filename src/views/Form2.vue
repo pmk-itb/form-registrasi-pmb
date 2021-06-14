@@ -44,10 +44,12 @@
       <div class="h-6"></div>
       <FormContainer>
         <FormContainerLeft>
-          <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+          <router-link to="/">
+            <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+          </router-link>
         </FormContainerLeft>
         <FormContainerRight>
-          <button class="sc" type="submit">Save & Continue</button>
+          <button class="sc" type="submit" @click="$router.push('Form3')">Save & Continue</button>
         </FormContainerRight>
       </FormContainer>
     </FloatingBox2>

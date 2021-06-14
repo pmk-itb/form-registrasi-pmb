@@ -19,7 +19,9 @@
       <div class="h-6"></div>
       <FormContainer>
         <FormContainerLeft>
-          <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+          <router-link to="/Form2">
+            <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+          </router-link>
         </FormContainerLeft>
         <FormContainerRight>
           <button class="submit" type="submit">Submit</button>
