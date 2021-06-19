@@ -18,14 +18,6 @@ const routes = [
     path: '/thankyou',
     component: ThankYou,
   },
-  {
-    path: '/form2',
-    component: Form2,
-  },
-  {
-    path: '/form3',
-    component: Form3,
-  },
 ];
 
 const router = createRouter({
