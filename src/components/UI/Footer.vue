@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mx-auto w-full max-w-screen-xl justify-center items-center space-y-4 z-10">
+  <footer class="flex flex-col mx-auto w-full max-w-screen-xl justify-center items-center space-y-4 z-10">
     <p class="font-roboto font-normal text-base text-center text-gray-secondary">Contact Us</p>
     <div class="flex flex-row space-x-4 text-base text-blue-primary">
       <a
@@ -11,5 +11,5 @@
       <a href="https://www.facebook.com/rana.pmkitb" target="_blank"><fa :icon="['fab', 'facebook-f']" /> </a>
       <a href="https://www.instagram.com/pmkitb/" target="_blank"><fa :icon="['fab', 'instagram']" /> </a>
     </div>
-  </div>
+  </footer>
 </template>
