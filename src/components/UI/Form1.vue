@@ -14,7 +14,7 @@
           />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small class="absolute tex3t-left block">Lalala</small>
+          <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
         </div>
 
         <div id="v-model-basic" class="form-control">
@@ -154,7 +154,7 @@ const hasError = ref<formInputs>({
 });
 
 const checkName = () => {
-  const names = fullname.value.split(' ');
+  const names = fullname.value.trim().split(' ');
 
   const isNameValid = names.every((name) => alphabetOnlyValidation(name));
 
