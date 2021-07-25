@@ -2,11 +2,11 @@
   <FormContainer>
     <FormContainerLeft>
       <form id="form" action="/" method="GET">
-        <div id="v-model-basic" class="form-control" :class="{ success: isActive, error: hasError }">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.fullname }">
           <label for="fullname"> NAMA LENGKAP </label>
           <input
             id="fullname"
-            v-model="name"
+            v-model="fullname"
             type="text"
             name="fullname"
             style="text-transform: capitalize"
@@ -14,7 +14,7 @@
           />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small class="absolute tex3t-left block">{{ message }}</small>
+          <small class="absolute tex3t-left block">Lalala</small>
         </div>
 
         <div id="v-model-basic" class="form-control">
@@ -84,8 +84,8 @@
         <div class="form-control">
           <label for="nim"> NIM </label>
           <input id="nim" v-model="studentId" type="number" name="nim" />
-          <i1 class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i1>
-          <i1 class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i1>
+          <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
+          <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
         </div>
 
@@ -97,8 +97,8 @@
             <option value="fti">FTI</option>
             <option value="ftsl">FTSL</option>
           </select>
-          <i1 class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i1>
-          <i1 class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i1>
+          <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
+          <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
         </div>
 
@@ -110,8 +110,8 @@
             <option value="jatinangor">Jatinangor</option>
             <option value="cirebon">Cirebon</option>
           </select>
-          <i1 class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i1>
-          <i1 class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i1>
+          <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
+          <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
         </div>
       </form>
@@ -124,8 +124,10 @@ import FormContainer from './FormContainer.vue';
 import FormContainerLeft from './FormContainerLeft.vue';
 import FormContainerRight from './FormContainerRight.vue';
 import { ref } from 'vue';
+import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
+import type { formInputs } from '../../types/formInputs';
 
-const name = ref('');
+const fullname = ref('');
 const nickname = ref('');
 const gender = ref('');
 const birthDate = ref('');
@@ -137,24 +139,27 @@ const studentId = ref('');
 const department = ref('');
 const campus = ref('');
 
-function checkName(): { isActive: boolean; hasError: boolean; message: string } {
-  if (name.value.length == 0) {
-    // show error
-    // add error class
-    return {
-      isActive: false,
-      hasError: true,
-      message: 'Nama Lengkap harus diisi',
-    };
-  } else {
-    // add success class
-    return {
-      isActive: true,
-      hasError: false,
-      message: '',
-    };
-  }
-}
+const hasError = ref<formInputs>({
+  fullname: false,
+  nickname: false,
+  gender: false,
+  birthDate: false,
+  phoneNumber: false,
+  emergencyPhoneNumber: false,
+  idLine: false,
+  email: false,
+  studentId: false,
+  department: false,
+  campus: false,
+});
+
+const checkName = () => {
+  const names = fullname.value.split(' ');
+
+  const isNameValid = names.every((name) => alphabetOnlyValidation(name));
+
+  isNameValid ? (hasError.value.fullname = false) : (hasError.value.fullname = true);
+};
 </script>
 
 <style>
@@ -220,23 +225,6 @@ form select {
 }
 
 .form-control.error i.fa-exclamation-circle {
-  color: #e74c3c;
-  visibility: visible;
-}
-
-.form-control i1 {
-  position: absolute;
-  top: 1.75rem;
-  right: 0rem;
-  visibility: hidden;
-}
-
-.form-control.success i1.fa-check-circle {
-  color: #2ecc71;
-  visibility: visible;
-}
-
-.form-control.error i1.fa-exclamation-circle {
   color: #e74c3c;
   visibility: visible;
 }
