@@ -17,12 +17,19 @@
           <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
         </div>
 
-        <div id="v-model-basic" class="form-control">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.nickname }">
           <label for="nickname"> NAMA PANGGILAN </label>
-          <input id="nickname" v-model="nickname" type="text" name="nickname" style="text-transform: capitalize" />
+          <input
+            id="nickname"
+            v-model="nickname"
+            type="text"
+            name="nickname"
+            style="text-transform: capitalize"
+            @change="checkNickName"
+          />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
+          <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
         </div>
 
         <div id="v-model-radiobutton" class="form-control">
@@ -46,20 +53,26 @@
           <small>Error Message</small>
         </div>
 
-        <div id="v-model-basic" class="form-control">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.phoneNumber }">
           <label for="pnumber"> NOMOR HANDPHONE PRIBADI </label>
-          <input id="pnumber" v-model="phoneNumber" type="number" name="pnumber" />
+          <input id="pnumber" v-model="phoneNumber" type="number" name="pnumber" @change="checkPhoneNumber" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
+          <small>Only numerics are accepted for phone number</small>
         </div>
 
-        <div class="form-control">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.emergencyPhoneNumber }">
           <label for="enumber"> NOMOR HANDPHONE DARURAT </label>
-          <input id="enumber" v-model="emergencyPhoneNumber" type="number" name="enumber" />
+          <input
+            id="enumber"
+            v-model="emergencyPhoneNumber"
+            type="number"
+            name="enumber"
+            @change="checkEmergencyNumber"
+          />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
+          <small>Only numerics are accepted for emergency phone number</small>
         </div>
 
         <div class="form-control">
@@ -70,23 +83,23 @@
           <small>Error Message</small>
         </div>
 
-        <div class="form-control">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.email }">
           <label for="email"> EMAIL </label>
-          <input id="email" v-model="email" type="text" name="email" />
+          <input id="email" v-model="email" type="text" name="email" @change="checkEmail" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
+          <small>Invalid Email</small>
         </div>
       </form>
     </FormContainerLeft>
     <FormContainerRight>
       <form>
-        <div class="form-control">
+        <div id="v-model-basic" class="form-control" :class="{ error: hasError.studentId }">
           <label for="nim"> NIM </label>
-          <input id="nim" v-model="studentId" type="number" name="nim" />
+          <input id="nim" v-model="studentId" type="number" name="nim" @change="checknim" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
+          <small>Only numerics are accepted for NIM</small>
         </div>
 
         <div class="form-control">
@@ -124,7 +137,7 @@ import FormContainer from './FormContainer.vue';
 import FormContainerLeft from './FormContainerLeft.vue';
 import FormContainerRight from './FormContainerRight.vue';
 import { ref } from 'vue';
-import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
+import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 
 const fullname = ref('');
@@ -159,6 +172,46 @@ const checkName = () => {
   const isNameValid = names.every((name) => alphabetOnlyValidation(name));
 
   isNameValid ? (hasError.value.fullname = false) : (hasError.value.fullname = true);
+};
+
+const checkNickName = () => {
+  const nick = nickname.value.trim().split(' ');
+
+  const isNickValid = nick.every((nick) => alphabetOnlyValidation(nick));
+
+  isNickValid ? (hasError.value.nickname = false) : (hasError.value.nickname = true);
+};
+
+const checkPhoneNumber = () => {
+  const phone = phoneNumber.value.trim().split(' ');
+
+  const isPhoneValid = phone.every((phonenum) => numericOnlyValidation(phonenum));
+
+  isPhoneValid ? (hasError.value.phoneNumber = false) : (hasError.value.phoneNumber = true);
+};
+
+const checkEmergencyNumber = () => {
+  const emergencyphone = emergencyPhoneNumber.value.trim().split(' ');
+
+  const isEmergencyValid = emergencyphone.every((emerphonenum) => numericOnlyValidation(emerphonenum));
+
+  isEmergencyValid ? (hasError.value.emergencyPhoneNumber = false) : (hasError.value.emergencyPhoneNumber = true);
+};
+
+const checkEmail = () => {
+  const mail = email.value.trim().split(' ');
+
+  const isEmailValid = mail.every((mails) => emailValidation(mails));
+
+  isEmailValid ? (hasError.value.email = false) : (hasError.value.email = true);
+};
+
+const checknim = () => {
+  const nim = studentId.value.trim().split(' ');
+
+  const isNIMValid = nim.every((id) => numericOnlyValidation(id));
+
+  isNIMValid ? (hasError.value.studentId = false) : (hasError.value.studentId = true);
 };
 </script>
 
