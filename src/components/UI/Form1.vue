@@ -1,12 +1,13 @@
 <template>
   <FormContainer>
-    <FormContainerLeft>
-      <form id="form" action="/" method="GET">
+    <form id="form" action="/Form2" method="GET">
+      <FormContainerLeft>
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.fullname }">
           <label for="fullname"> NAMA LENGKAP </label>
           <input
             id="fullname"
             v-model="fullname"
+            required
             type="text"
             name="fullname"
             style="text-transform: capitalize"
@@ -22,6 +23,7 @@
           <input
             id="nickname"
             v-model="nickname"
+            required
             type="text"
             name="nickname"
             style="text-transform: capitalize"
@@ -35,10 +37,10 @@
         <div id="v-model-radiobutton" class="form-control">
           <p>JENIS KELAMIN</p>
           <label class="radio-inline">
-            <input v-model="gender" class="mr-2 my-2" type="radio" name="gender" />Laki-laki
+            <input v-model="gender" required class="mr-2 my-2" type="radio" name="gender" />Laki-laki
           </label>
           <label class="radio-inline">
-            <input v-model="gender" class="mr-2 ml-10 my-2" type="radio" name="gender" />Perempuan
+            <input v-model="gender" required class="mr-2 ml-10 my-2" type="radio" name="gender" />Perempuan
           </label>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
@@ -47,7 +49,7 @@
 
         <div class="form-control">
           <label for="bdate"> TANGGAL LAHIR </label>
-          <input id="bdate" v-model="birthDate" type="date" name="bdate" />
+          <input id="bdate" v-model="birthDate" required type="date" name="bdate" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
@@ -55,7 +57,7 @@
 
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.phoneNumber }">
           <label for="pnumber"> NOMOR HANDPHONE PRIBADI </label>
-          <input id="pnumber" v-model="phoneNumber" type="number" name="pnumber" @change="checkPhoneNumber" />
+          <input id="pnumber" v-model="phoneNumber" required type="number" name="pnumber" @change="checkPhoneNumber" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Only numerics are accepted for phone number</small>
@@ -66,6 +68,7 @@
           <input
             id="enumber"
             v-model="emergencyPhoneNumber"
+            required
             type="number"
             name="enumber"
             @change="checkEmergencyNumber"
@@ -77,7 +80,7 @@
 
         <div class="form-control">
           <label for="idline"> ID LINE </label>
-          <input id="idline" v-model="idLine" type="text" name="idline" />
+          <input id="idline" v-model="idLine" required type="text" name="idline" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
@@ -85,18 +88,16 @@
 
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.email }">
           <label for="email"> EMAIL </label>
-          <input id="email" v-model="email" type="text" name="email" @change="checkEmail" />
+          <input id="email" v-model="email" required type="text" name="email" @change="checkEmail" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Invalid Email</small>
         </div>
-      </form>
-    </FormContainerLeft>
-    <FormContainerRight>
-      <form>
+      </FormContainerLeft>
+      <FormContainerRight>
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.studentId }">
           <label for="nim"> NIM </label>
-          <input id="nim" v-model="studentId" type="number" name="nim" @change="checknim" />
+          <input id="nim" v-model="studentId" required type="number" name="nim" @change="checknim" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Only numerics are accepted for NIM</small>
@@ -104,7 +105,7 @@
 
         <div class="form-control">
           <label for="fakultas"> FAKULTAS </label>
-          <select id="fakultas" v-model="department" name="fakultas">
+          <select id="fakultas" v-model="department" required name="fakultas">
             <option class="font-roboto" value="" disabled selected hidden></option>
             <option class="font-roboto" value="stei">STEI</option>
             <option value="fti">FTI</option>
@@ -114,10 +115,9 @@
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
         </div>
-
         <div class="form-control">
           <label for="kampus"> KAMPUS </label>
-          <select id="kampus" v-model="campus" name="kampus" required>
+          <select id="kampus" v-model="campus" required name="kampus">
             <option value="" disabled selected hidden></option>
             <option value="ganesha">Ganesha</option>
             <option value="jatinangor">Jatinangor</option>
@@ -127,8 +127,8 @@
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
         </div>
-      </form>
-    </FormContainerRight>
+      </FormContainerRight>
+    </form>
   </FormContainer>
 </template>
 
@@ -227,6 +227,7 @@ input[type='date'] {
 form select {
   width: 100%;
   height: 1.6rem;
+  margin-top: 22rem;
 }
 
 .form-control {

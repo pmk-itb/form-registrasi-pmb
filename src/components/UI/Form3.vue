@@ -1,7 +1,7 @@
 <template>
   <FormContainer>
-    <FormContainerLeft>
-      <form id="form" action="/" method="GET">
+    <form id="form" action="/" method="GET">
+      <FormContainerLeft>
         <div id="v-model-basic" class="form-control mt-6 mb-2" :class="{ error: hasError.pktb }">
           <label class="text-left block form-control" for="pktb"> NAMA PKTB </label>
           <input
@@ -10,22 +10,21 @@
             type="text"
             name="pktb"
             style="text-transform: capitalize"
+            required
             @change="checkPKTB"
           />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
         </div>
-      </form>
-    </FormContainerLeft>
-    <FormContainerRight>
-      <form>
+      </FormContainerLeft>
+      <FormContainerRight>
         <div class="form-control">
           <label class="text-left block mt-6 mb-2" for="ktb"> NAMA KTB </label>
-          <input id="ktb" type="text" name="ktb" />
+          <input id="ktb" v-model="ktb" type="text" name="ktb" required />
         </div>
-      </form>
-    </FormContainerRight>
+      </FormContainerRight>
+    </form>
   </FormContainer>
 </template>
 
@@ -58,6 +57,7 @@ const checkPKTB = () => {
 input[type='text'] {
   width: 100%;
   height: 1.6rem;
+  padding: 0 0.5rem;
 }
 
 .form-control {
