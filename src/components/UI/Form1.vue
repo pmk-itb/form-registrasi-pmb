@@ -63,7 +63,12 @@
           <small>Only numerics are accepted for phone number</small>
         </div>
 
-        <div id="v-model-basic" class="form-control" :class="{ error: hasError.emergencyPhoneNumber }">
+        <div
+          id="v-model-basic"
+          style="width: 50%"
+          class="form-control-2"
+          :class="{ error: hasError.emergencyPhoneNumber }"
+        >
           <label for="enumber"> NOMOR HANDPHONE DARURAT </label>
           <input
             id="enumber"
@@ -76,6 +81,22 @@
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Only numerics are accepted for emergency phone number</small>
+        </div>
+
+        <div id="v-model-basic" style="width: 47.5%" class="form-control-2" :class="{ error: hasError.relation }">
+          <label for="relation"> HUBUNGAN </label>
+          <input
+            id="relation"
+            v-model="relation"
+            required
+            type="text"
+            name="relation"
+            style="text-transform: capitalize"
+            @change="checkRelation"
+          />
+          <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
+          <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
+          <small class="absolute tex3t-left block">Only alphabets are accepted for relation</small>
         </div>
 
         <div class="form-control">
@@ -134,11 +155,11 @@ const gender = ref('');
 const birthDate = ref('');
 const phoneNumber = ref('');
 const emergencyPhoneNumber = ref('');
+const relation = ref('');
 const idLine = ref('');
 const email = ref('');
 const studentId = ref('');
 const department = ref('');
-const campus = ref('');
 
 const hasError = ref<formInputs>({
   fullname: false,
@@ -147,11 +168,11 @@ const hasError = ref<formInputs>({
   birthDate: false,
   phoneNumber: false,
   emergencyPhoneNumber: false,
+  relation: false,
   idLine: false,
   email: false,
   studentId: false,
   department: false,
-  campus: false,
 });
 
 const checkName = () => {
@@ -184,6 +205,14 @@ const checkEmergencyNumber = () => {
   const isEmergencyValid = emergencyphone.every((emerphonenum) => numericOnlyValidation(emerphonenum));
 
   isEmergencyValid ? (hasError.value.emergencyPhoneNumber = false) : (hasError.value.emergencyPhoneNumber = true);
+};
+
+const checkRelation = () => {
+  const rels = relation.value.trim().split(' ');
+
+  const isRelationValid = rels.every((rel) => alphabetOnlyValidation(rel));
+
+  isRelationValid ? (hasError.value.relation = false) : (hasError.value.relation = true);
 };
 
 const checkEmail = () => {
@@ -228,61 +257,81 @@ form select {
   position: relative;
 }
 
-.form-control input {
+.form-control-2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  position: relative;
+}
+
+.form-control input,
+.form-control-2 input {
   border: 2px solid #f0f0f0;
   border-radius: 4px;
   margin-top: 0.5rem;
   padding: 0.5rem;
 }
 
-.form-control.success input {
+.form-control.success input,
+.form-control-2.success input {
   border-color: #2ecc71;
 }
 
-.form-control.error input {
+.form-control.error input,
+.form-control-2.error input {
   border-color: #e74c3c;
 }
 
-.form-control select {
+.form-control select,
+.form-control-2 select {
   border: 2px solid #f0f0f0;
   border-radius: 4px;
   display: block;
   margin-top: 0.5rem;
 }
 
-.form-control.success select {
+.form-control.success select,
+.form-control-2.success select {
   border-color: #2ecc71;
 }
 
-.form-control.error select {
+.form-control.error select,
+.form-control-2.error select {
   border-color: #e74c3c;
 }
 
-.form-control i {
+.form-control i,
+.form-control-2 i {
   position: absolute;
   top: 1.75rem;
   right: 1rem;
   visibility: hidden;
 }
-.form-control.success i.fa-check-circle {
+.form-control.success i.fa-check-circle,
+.form-control-2.success i.fa-check-circle {
   color: #2ecc71;
   visibility: visible;
 }
 
-.form-control.error i.fa-exclamation-circle {
+.form-control.error i.fa-exclamation-circle,
+.form-control-2.error i.fa-exclamation-circle {
   color: #e74c3c;
   visibility: visible;
 }
 
-.form-control small {
+.form-control small,
+.form-control-2 small {
   visibility: hidden;
   position: absolute;
   bottom: -1.25rem;
   left: 0;
 }
 
-.form-control.error small {
+.form-control.error small,
+.form-control-2.error small {
   color: #e74c3c;
   visibility: visible;
+  position: absolute;
+  top: 3rem;
 }
 </style>
