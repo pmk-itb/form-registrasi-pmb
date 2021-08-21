@@ -17,13 +17,11 @@
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
         </div>
+        <div class="h-6"></div>
+        <router-link to="/Form2">
+          <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
+        </router-link>
       </FormContainerLeft>
-      <FormContainerRight>
-        <div class="form-control">
-          <label class="text-left block mt-6 mb-2" for="ktb"> NAMA KTB </label>
-          <input id="ktb" v-model="ktb" type="text" name="ktb" required />
-        </div>
-      </FormContainerRight>
     </form>
   </FormContainer>
 </template>
@@ -31,17 +29,14 @@
 <script setup lang="ts">
 import FormContainer from './FormContainer.vue';
 import FormContainerLeft from './FormContainerLeft.vue';
-import FormContainerRight from './FormContainerRight.vue';
 import { ref } from 'vue';
 import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 
 const pktb = ref('');
-const ktb = ref('');
 
 const hasError = ref<formInputs>({
   pktb: false,
-  ktb: false,
 });
 
 const checkPKTB = () => {
@@ -123,5 +118,7 @@ input[type='text'] {
 .form-control.error small {
   color: #e74c3c;
   visibility: visible;
+  position: absolute;
+  top: 4rem;
 }
 </style>

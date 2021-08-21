@@ -12,5 +12,4 @@ export type formInputs = {
   department?: boolean;
   campus?: boolean;
   pktb?: boolean;
-  ktb?: boolean;
 };
