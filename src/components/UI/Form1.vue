@@ -80,7 +80,7 @@
 
         <div class="form-control">
           <label for="idline"> ID LINE </label>
-          <input id="idline" v-model="idLine" required type="text" name="idline" />
+          <input id="idline" v-model="idLine" type="text" name="idline" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
@@ -110,18 +110,6 @@
             <option class="font-roboto" value="stei">STEI</option>
             <option value="fti">FTI</option>
             <option value="ftsl">FTSL</option>
-          </select>
-          <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
-          <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small>Error Message</small>
-        </div>
-        <div class="form-control">
-          <label for="kampus"> KAMPUS </label>
-          <select id="kampus" v-model="campus" required name="kampus">
-            <option value="" disabled selected hidden></option>
-            <option value="ganesha">Ganesha</option>
-            <option value="jatinangor">Jatinangor</option>
-            <option value="cirebon">Cirebon</option>
           </select>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
@@ -228,6 +216,9 @@ form select {
   width: 100%;
   height: 1.6rem;
   margin-top: 22rem;
+  margin-right: 3.25rem;
+  position: absolute;
+  right: 0;
 }
 
 .form-control {
