@@ -10,6 +10,5 @@ export type formInputs = {
   email?: boolean;
   studentId?: boolean;
   department?: boolean;
-  campus?: boolean;
   pktb?: boolean;
 };

@@ -37,10 +37,26 @@
         <div id="v-model-radiobutton" class="form-control">
           <p>JENIS KELAMIN</p>
           <label class="radio-inline">
-            <input v-model="gender" required class="mr-2 my-2" type="radio" name="gender" />Laki-laki
+            <input
+              v-model="gender"
+              required
+              class="mr-2 my-2"
+              type="radio"
+              name="gender"
+              value="MALE"
+              @change="updateGender"
+            />Laki-laki
           </label>
           <label class="radio-inline">
-            <input v-model="gender" required class="mr-2 ml-10 my-2" type="radio" name="gender" />Perempuan
+            <input
+              v-model="gender"
+              required
+              class="mr-2 ml-10 my-2"
+              type="radio"
+              name="gender"
+              value="FEMALE"
+              @change="updateGender"
+            />Perempuan
           </label>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
@@ -49,7 +65,7 @@
 
         <div class="form-control">
           <label for="bdate"> TANGGAL LAHIR </label>
-          <input id="bdate" v-model="birthDate" required type="date" name="bdate" />
+          <input id="bdate" v-model="birthDate" required type="date" name="bdate" @change="updateBirthDate" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
@@ -101,7 +117,7 @@
 
         <div class="form-control">
           <label for="idline"> ID LINE </label>
-          <input id="idline" v-model="idLine" type="text" name="idline" />
+          <input id="idline" v-model="idLine" type="text" name="idline" @change="checkIdLine" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Error Message</small>
@@ -126,13 +142,8 @@
 
         <div class="form-control">
           <label for="fakultas"> FAKULTAS </label>
-          <select id="fakultas" v-model="department" required name="fakultas">
-            <option
-              v-for="department in departments"
-              :key="department.code"
-              class="font-roboto"
-              :value="department.code"
-            >
+          <select id="fakultas" v-model="department" required name="fakultas" @change="updateDepartment">
+            <option v-for="department in departments" :key="department.id" class="font-roboto" :value="department.id">
               {{ department.name }}
             </option>
           </select>
@@ -149,22 +160,27 @@
 import FormContainer from './FormContainer.vue';
 import FormContainerLeft from './FormContainerLeft.vue';
 import FormContainerRight from './FormContainerRight.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 import { departments } from '../../constants/form/departments';
+import { useStore } from 'vuex';
+import updateEvent, { formInputUpdateType } from '../../storeHandler/form/updateData';
+import form from '../../store/modules/form';
 
-const fullname = ref('');
-const nickname = ref('');
-const gender = ref('');
-const birthDate = ref('');
-const phoneNumber = ref('');
-const emergencyPhoneNumber = ref('');
-const relation = ref('');
-const idLine = ref('');
-const email = ref('');
-const studentId = ref('');
-const department = ref('');
+const store = useStore();
+
+const fullname = computed(() => store.state.form.fullname);
+const nickname = computed(() => store.state.form.nickname);
+const gender = computed(() => store.state.form.gender);
+const birthDate = computed(() => store.state.form.birthDate);
+const phoneNumber = computed(() => store.state.form.phoneNumber);
+const emergencyPhoneNumber = computed(() => store.state.form.emergencyPhoneNumber);
+const relation = computed(() => store.state.form.relation);
+const idLine = computed(() => store.state.form.idLine);
+const email = computed(() => store.state.form.email);
+const studentId = computed(() => store.state.form.studentId);
+const department = computed(() => store.state.form.department);
 
 const hasError = ref<formInputs>({
   fullname: false,
@@ -180,58 +196,83 @@ const hasError = ref<formInputs>({
   department: false,
 });
 
-const checkName = () => {
-  const names = fullname.value.trim().split(' ');
+const checkName = (e: Event) => {
+  const names = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.fullname, names);
 
-  const isNameValid = names.every((name) => alphabetOnlyValidation(name));
+  const isNameValid = names.split(' ').every((name) => alphabetOnlyValidation(name));
 
   isNameValid ? (hasError.value.fullname = false) : (hasError.value.fullname = true);
 };
 
-const checkNickName = () => {
-  const nick = nickname.value.trim().split(' ');
+const checkNickName = (e: Event) => {
+  const nickname = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.nickname, nickname);
 
-  const isNickValid = nick.every((nick) => alphabetOnlyValidation(nick));
+  const isNickValid = nickname.split(' ').every((nick) => alphabetOnlyValidation(nick));
 
   isNickValid ? (hasError.value.nickname = false) : (hasError.value.nickname = true);
 };
 
-const checkPhoneNumber = () => {
-  const phone = phoneNumber.value.trim().split(' ');
+const updateGender = (e: Event) => {
+  updateEvent(store, formInputUpdateType.gender, (e.target as HTMLInputElement).value);
+};
 
-  const isPhoneValid = phone.every((phonenum) => numericOnlyValidation(phonenum));
+const updateBirthDate = (e: Event) => {
+  updateEvent(store, formInputUpdateType.birthDate, (e.target as HTMLInputElement).value);
+};
+
+const checkPhoneNumber = (e: Event) => {
+  const phone = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.phoneNumber, phone);
+
+  const isPhoneValid = numericOnlyValidation(phone);
 
   isPhoneValid ? (hasError.value.phoneNumber = false) : (hasError.value.phoneNumber = true);
 };
 
-const checkEmergencyNumber = () => {
-  const emergencyphone = emergencyPhoneNumber.value.trim().split(' ');
+const checkEmergencyNumber = (e: Event) => {
+  const emergencyphone = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.emergencyPhoneNumber, emergencyphone);
 
-  const isEmergencyValid = emergencyphone.every((emerphonenum) => numericOnlyValidation(emerphonenum));
+  const isEmergencyValid = numericOnlyValidation(emergencyphone);
 
   isEmergencyValid ? (hasError.value.emergencyPhoneNumber = false) : (hasError.value.emergencyPhoneNumber = true);
 };
 
-const checkRelation = () => {
-  const rels = relation.value.trim().split(' ');
+const checkRelation = (e: Event) => {
+  const rels = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.relation, rels);
 
-  const isRelationValid = rels.every((rel) => alphabetOnlyValidation(rel));
+  const isRelationValid = rels.split(' ').every((rel) => alphabetOnlyValidation(rel));
 
   isRelationValid ? (hasError.value.relation = false) : (hasError.value.relation = true);
 };
 
-const checkEmail = () => {
-  const mail = email.value.trim().split(' ');
+const checkIdLine = (e: Event) => {
+  let idLine = (e.target as HTMLInputElement).value.trim();
+  if (idLine.substr(0, 1) === '@') idLine = idLine.substring(1);
+  updateEvent(store, formInputUpdateType.idLine, idLine);
+};
 
-  const isEmailValid = mail.every((mails) => emailValidation(mails));
+const checkEmail = (e: Event) => {
+  const mail = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.email, mail);
+
+  const isEmailValid = emailValidation(mail);
 
   isEmailValid ? (hasError.value.email = false) : (hasError.value.email = true);
 };
 
-const checknim = () => {
-  const nim = studentId.value.trim().split(' ');
+const updateDepartment = (e: Event) => {
+  updateEvent(store, formInputUpdateType.department, (e.target as HTMLSelectElement).value);
+};
 
-  const isNIMValid = nim.every((id) => numericOnlyValidation(id));
+const checknim = (e: Event) => {
+  const nim = (e.target as HTMLInputElement).value.trim();
+  updateEvent(store, formInputUpdateType.studentId, nim);
+
+  const isNIMValid = numericOnlyValidation(nim);
 
   isNIMValid ? (hasError.value.studentId = false) : (hasError.value.studentId = true);
 };
