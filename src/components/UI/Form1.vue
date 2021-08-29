@@ -127,10 +127,14 @@
         <div class="form-control">
           <label for="fakultas"> FAKULTAS </label>
           <select id="fakultas" v-model="department" required name="fakultas">
-            <option class="font-roboto" value="" disabled selected hidden></option>
-            <option class="font-roboto" value="stei">STEI</option>
-            <option value="fti">FTI</option>
-            <option value="ftsl">FTSL</option>
+            <option
+              v-for="department in departments"
+              :key="department.code"
+              class="font-roboto"
+              :value="department.code"
+            >
+              {{ department.name }}
+            </option>
           </select>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
@@ -148,6 +152,7 @@ import FormContainerRight from './FormContainerRight.vue';
 import { ref } from 'vue';
 import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
+import { departments } from '../../constants/form/departments';
 import { useStore } from 'vuex';
 
 const fullname = ref('');
