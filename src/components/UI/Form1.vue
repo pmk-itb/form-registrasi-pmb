@@ -153,7 +153,6 @@ import { ref } from 'vue';
 import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 import { departments } from '../../constants/form/departments';
-import { useStore } from 'vuex';
 
 const fullname = ref('');
 const nickname = ref('');
