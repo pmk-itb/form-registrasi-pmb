@@ -17,6 +17,6 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const onClickHandler = () => {
-  store.commit('pages/nextPage');
+  store.commit('pages/NEXT_PAGE');
 };
 </script>
