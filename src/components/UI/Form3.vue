@@ -15,12 +15,8 @@
           />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
-          <small class="absolute tex3t-left block">Only alphabets are accepted for name</small>
+          <small class="absolute text-left block">Only alphabets are accepted for name</small>
         </div>
-        <div class="h-6"></div>
-        <router-link to="/Form2">
-          <a class="text-xs font-bold text-blue-primary hover:text-xs hover:underline" href=""> &lt; Back </a>
-        </router-link>
       </FormContainerLeft>
     </form>
   </FormContainer>

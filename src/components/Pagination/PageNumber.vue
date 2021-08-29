@@ -20,6 +20,6 @@ const props = defineProps<{
 }>();
 
 const onClickHandler = () => {
-  store.commit('pages/changePage', props.number);
+  store.commit('pages/CHANGE_PAGE', props.number);
 };
 </script>

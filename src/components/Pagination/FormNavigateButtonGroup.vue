@@ -1,6 +1,6 @@
 <template>
   <template v-if="currentActivePageNumber === 1">
-    <div class="flex justify-end items-center w-full px-8">
+    <div class="flex justify-center md:justify-end items-center w-full px-8">
       <NextButton key="next-button" />
     </div>
   </template>
