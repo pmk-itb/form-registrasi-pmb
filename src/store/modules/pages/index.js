@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { MAX_PAGE_NUMBER } from '../../../constants/index';
+import { MUTATIONS } from './constants';
 
 const state = () => ({
   currentActivePageNumber: 1,
@@ -19,28 +20,22 @@ const state = () => ({
   ],
 });
 
-const getters = {
-  getCurrentActivePageNumber(state) {
-    return state.currentActivePageNumber;
-  },
-};
-
 const mutations = {
-  nextPage(state) {
+  [MUTATIONS.NEXT_PAGE](state) {
     if (state.currentActivePageNumber < 3) {
       state.pages[state.currentActivePageNumber - 1].active = false;
       state.currentActivePageNumber++;
       state.pages[state.currentActivePageNumber - 1].active = true;
     }
   },
-  prevPage(state) {
+  [MUTATIONS.PREV_PAGE](state) {
     if (state.currentActivePageNumber > 1) {
       state.pages[state.currentActivePageNumber - 1].active = false;
       state.currentActivePageNumber--;
       state.pages[state.currentActivePageNumber - 1].active = true;
     }
   },
-  changePage(state, payload) {
+  [MUTATIONS.CHANGE_PAGE](state, payload) {
     if (payload >= 1 && payload <= MAX_PAGE_NUMBER && payload !== state.currentActivePageNumber) {
       state.pages[state.currentActivePageNumber - 1].active = false;
       state.currentActivePageNumber = payload;
@@ -52,6 +47,5 @@ const mutations = {
 export default {
   namespaced: true,
   state,
-  getters,
   mutations,
 };

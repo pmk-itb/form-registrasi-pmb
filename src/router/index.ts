@@ -2,8 +2,6 @@ import Form from '../views/Form.vue';
 import ThankYou from '../views/ThankYou.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '../views/NotFound.vue';
-import Form2 from '../views/Form2.vue';
-import Form3 from '../views/Form3.vue';
 
 const routes = [
   {

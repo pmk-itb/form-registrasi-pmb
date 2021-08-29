@@ -8,13 +8,13 @@
     <FloatingBox class="pt-7 pb-11 md:w-10/12">
       <PageIndicator />
       <template v-if="currentActivePageNumber === 1">
-        <Form1 />
+        <Form1 key="form1" />
       </template>
       <template v-else-if="currentActivePageNumber === 2">
-        <Form2 />
+        <Form2 key="form2" />
       </template>
       <template v-else>
-        <Form3 />
+        <Form3 key="form3" />
       </template>
       <FormNavigateButtonGroup />
     </FloatingBox>

@@ -1,19 +1,19 @@
 <template>
   <template v-if="currentActivePageNumber === 1">
     <div class="flex justify-end items-center w-full px-8">
-      <NextButton />
+      <NextButton key="next-button" />
     </div>
   </template>
   <template v-else-if="currentActivePageNumber === MAX_PAGE_NUMBER">
     <div class="flex justify-between items-center w-full px-8">
-      <BackButton />
-      <SubmitButton />
+      <BackButton key="back-button" />
+      <SubmitButton key="submit-button" />
     </div>
   </template>
   <template v-else>
     <div class="flex justify-between items-center w-full px-8">
-      <BackButton />
-      <NextButton />
+      <BackButton key="back-button" />
+      <NextButton key="next-button" />
     </div>
   </template>
 </template>

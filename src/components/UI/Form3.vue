@@ -32,6 +32,9 @@ import FormContainerLeft from './FormContainerLeft.vue';
 import { ref } from 'vue';
 import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const pktb = ref('');
 

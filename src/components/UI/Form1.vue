@@ -65,7 +65,7 @@
 
         <div
           id="v-model-basic"
-          style="width: 50%"
+          style="width: 65%"
           class="form-control-2"
           :class="{ error: hasError.emergencyPhoneNumber }"
         >
@@ -83,7 +83,7 @@
           <small>Only numerics are accepted for emergency phone number</small>
         </div>
 
-        <div id="v-model-basic" style="width: 47.5%" class="form-control-2" :class="{ error: hasError.relation }">
+        <div id="v-model-basic" style="width: 35%" class="form-control-2" :class="{ error: hasError.relation }">
           <label for="relation"> HUBUNGAN </label>
           <input
             id="relation"
@@ -148,6 +148,7 @@ import FormContainerRight from './FormContainerRight.vue';
 import { ref } from 'vue';
 import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
+import { useStore } from 'vuex';
 
 const fullname = ref('');
 const nickname = ref('');
@@ -239,15 +240,6 @@ input[type='date'] {
   width: 100%;
   height: 1.6rem;
   padding: 0 0.5rem;
-}
-
-form select {
-  width: 100%;
-  height: 1.6rem;
-  margin-top: 22rem;
-  margin-right: 3.25rem;
-  position: absolute;
-  right: 0;
 }
 
 .form-control {
