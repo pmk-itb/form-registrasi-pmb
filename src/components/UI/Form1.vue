@@ -101,15 +101,11 @@
 
         <div id="v-model-basic" style="width: 35%" class="form-control-2" :class="{ error: hasError.relation }">
           <label for="relation"> HUBUNGAN </label>
-          <input
-            id="relation"
-            v-model="relation"
-            required
-            type="text"
-            name="relation"
-            style="text-transform: capitalize"
-            @change="checkRelation"
-          />
+          <select id="relation" v-model="relation" required name="relation" @change="updateRelation">
+            <option v-for="relationship in relationships" :key="relationship.id" :value="relationship.id">
+              {{ relationship.name }}
+            </option>
+          </select>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small class="absolute tex3t-left block">Only alphabets are accepted for relation</small>
@@ -164,6 +160,7 @@ import { computed, ref } from 'vue';
 import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 import { departments } from '../../constants/form/departments';
+import { relationships } from '../../constants/form/relationship';
 import { useStore } from 'vuex';
 import updateEvent, { formInputUpdateType } from '../../storeHandler/form/updateData';
 import form from '../../store/modules/form';
@@ -240,13 +237,8 @@ const checkEmergencyNumber = (e: Event) => {
   isEmergencyValid ? (hasError.value.emergencyPhoneNumber = false) : (hasError.value.emergencyPhoneNumber = true);
 };
 
-const checkRelation = (e: Event) => {
-  const rels = (e.target as HTMLInputElement).value.trim();
-  updateEvent(store, formInputUpdateType.relation, rels);
-
-  const isRelationValid = rels.split(' ').every((rel) => alphabetOnlyValidation(rel));
-
-  isRelationValid ? (hasError.value.relation = false) : (hasError.value.relation = true);
+const updateRelation = (e: Event) => {
+  updateEvent(store, formInputUpdateType.relation, (e.target as HTMLSelectElement).value);
 };
 
 const checkIdLine = (e: Event) => {
