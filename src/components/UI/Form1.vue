@@ -73,7 +73,7 @@
 
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.phoneNumber }">
           <label for="pnumber"> NOMOR HANDPHONE PRIBADI </label>
-          <input id="pnumber" v-model="phoneNumber" required type="number" name="pnumber" @change="checkPhoneNumber" />
+          <input id="pnumber" v-model="phoneNumber" required type="text" name="pnumber" @change="checkPhoneNumber" />
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small>Only numerics are accepted for phone number</small>
@@ -90,7 +90,7 @@
             id="enumber"
             v-model="emergencyPhoneNumber"
             required
-            type="number"
+            type="text"
             name="enumber"
             @change="checkEmergencyNumber"
           />
@@ -220,7 +220,7 @@ const updateBirthDate = (e: Event) => {
 };
 
 const checkPhoneNumber = (e: Event) => {
-  const phone = (e.target as HTMLInputElement).value.trim();
+  const phone = (e.target as HTMLInputElement).value.trim().replace(/\+62/, '0');
   updateEvent(store, formInputUpdateType.phoneNumber, phone);
 
   const isPhoneValid = numericOnlyValidation(phone);
@@ -229,7 +229,7 @@ const checkPhoneNumber = (e: Event) => {
 };
 
 const checkEmergencyNumber = (e: Event) => {
-  const emergencyphone = (e.target as HTMLInputElement).value.trim();
+  const emergencyphone = (e.target as HTMLInputElement).value.trim().replace(/\+62/, '0');
   updateEvent(store, formInputUpdateType.emergencyPhoneNumber, emergencyphone);
 
   const isEmergencyValid = numericOnlyValidation(emergencyphone);
@@ -242,8 +242,7 @@ const updateRelation = (e: Event) => {
 };
 
 const checkIdLine = (e: Event) => {
-  let idLine = (e.target as HTMLInputElement).value.trim();
-  if (idLine.substr(0, 1) === '@') idLine = idLine.substring(1);
+  const idLine = (e.target as HTMLInputElement).value.trim().replace(/@/, '');
   updateEvent(store, formInputUpdateType.idLine, idLine);
 };
 
