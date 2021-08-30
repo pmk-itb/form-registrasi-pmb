@@ -10,13 +10,7 @@ const getPrefixUrl = () => {
 
 const client = ky.extend({
   prefixUrl: getPrefixUrl(),
-  hooks: {
-    beforeRequest: [
-      (request) => {
-        request.headers.set('Authorization', `Bearer ${process.env.API_KEY as string}`);
-      },
-    ],
-  },
+  headers: { Authorization: `Bearer ${process.env.API_KEY as string}` },
 });
 
 export default client;
