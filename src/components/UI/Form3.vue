@@ -28,19 +28,15 @@ import FormContainerLeft from './FormContainerLeft.vue';
 import { computed, ref } from 'vue';
 import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
-import updateEvent, { formInputUpdateType } from '../../storeHandler/form/updateData';
-import { useStore } from 'vuex';
 
-const store = useStore();
-
-const pktb = computed(() => store.state.form.pktb);
+const pktb = computed(() => sessionStorage.getItem('form.pktb') ?? '');
 
 const hasError = ref<formInputs>({
   pktb: false,
 });
 
 const checkPKTB = (e: Event) => {
-  updateEvent(store, formInputUpdateType.pktb, (e.target as HTMLInputElement).value);
+  sessionStorage.setItem('form.pktb', (e.target as HTMLInputElement).value);
   const names = pktb.value.trim().split(' ');
 
   const isNameValid = names.every((name) => alphabetOnlyValidation(name));

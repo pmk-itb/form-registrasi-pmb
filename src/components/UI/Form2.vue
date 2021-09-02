@@ -5,7 +5,7 @@
         <label class="text-left block mt-6 mb-2" for="prov"> PROVINSI </label>
         <input v-model="selectedProvince" type="search" list="prov" required @change="populateCity" />
         <datalist id="prov">
-          <option v-for="province in provinceData?.data" :key="province.id" :value="province.id">
+          <option v-for="province in provinceData?.data" :key="province.id" :value="province.nama">
             {{ province.nama }}
           </option>
         </datalist>
@@ -45,9 +45,9 @@ import { getListOfProvinces, getListOfCities } from '../../lib/form/regionalData
 import { getListOfSchools } from '../../lib/form/school';
 import { getListOfChurches } from '../../lib/form/church';
 import { ref } from 'vue';
-import { RegionalDataResponse } from '../../lib/form/types/RegionalResponse';
-import { SchoolResponse } from '../../lib/form/types/SchoolResponse';
-import { ChurchResponse } from '../../lib/form/types/ChurchResponse';
+import type { RegionalDataResponse } from '../../lib/form/types/RegionalResponse';
+import type { SchoolResponse } from '../../lib/form/types/SchoolResponse';
+import type { ChurchResponse } from '../../lib/form/types/ChurchResponse';
 
 const provinceData = ref<RegionalDataResponse>();
 const citiesData = ref<RegionalDataResponse>();
