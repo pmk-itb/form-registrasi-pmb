@@ -22,7 +22,7 @@ type FormSubmitData = {
 
 const submitForm = (data: FormSubmitData): Promise<SubmitResponse> => {
   return client
-    .post('/members', {
+    .post('members', {
       json: data,
     })
     .json();
