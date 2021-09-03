@@ -5,7 +5,7 @@
         <label class="text-left block mt-6 mb-2" for="prov"> PROVINSI </label>
         <input v-model="selectedProvince" type="search" list="prov" required @change="populateCity" />
         <datalist id="prov">
-          <option v-for="province in provinceData?.data" :key="province.id" :value="province.nama">
+          <option v-for="province in provinceData?.data" :key="province.id" :value="province.id">
             {{ province.nama }}
           </option>
         </datalist>
@@ -28,7 +28,7 @@
         <label class="text-left block mt-6 mb-2" for="sekolah"> GEREJA </label>
         <input v-model="selectedChurch" type="search" list="gereja" required />
         <datalist id="gereja">
-          <option v-for="(church, index) in churchesData?.data?.churches" :key="index" :value="church">
+          <option v-for="(church, index) in churchesData?.data" :key="index" :value="church">
             {{ church }}
           </option>
         </datalist>
