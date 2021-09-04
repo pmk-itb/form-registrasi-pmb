@@ -6,7 +6,8 @@ type FormSubmitData = {
   name: string;
   nickname: string;
   majorId: number;
-  gender: 'MALE' | 'FEMALE';
+  gender: string;
+  // gender: 'MALE' | 'FEMALE';
   birthDate: string;
   line: string;
   phone: string;
@@ -16,7 +17,8 @@ type FormSubmitData = {
   originSchool: string;
   originChurch: string;
   parentPhone: string;
-  parentRelationship: 'AYAH' | 'IBU' | 'WALI' | 'KAKAK' | 'ADIK' | 'BIBI' | 'PAMAN' | 'KAKEK' | 'NENEK' | 'OTHER';
+  parentRelationship: string;
+  // parentRelationship: 'AYAH' | 'IBU' | 'WALI' | 'KAKAK' | 'ADIK' | 'BIBI' | 'PAMAN' | 'KAKEK' | 'NENEK' | 'OTHER';
   discipleshipId: number;
 };
 

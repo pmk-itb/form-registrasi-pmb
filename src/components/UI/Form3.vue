@@ -4,15 +4,11 @@
       <FormContainerLeft>
         <div id="v-model-basic" class="form-control mt-6 mb-2" :class="{ error: hasError.pktb }">
           <label class="text-left block form-control" for="pktb"> NAMA PKTB </label>
-          <input
-            id="pktb"
-            v-model="pktb"
-            type="text"
-            name="pktb"
-            style="text-transform: capitalize"
-            required
-            @change="checkPKTB"
-          />
+          <select id="pktb" v-model="pktb" required name="pktb" @change="updatePKTB">
+            <option v-for="mentor in mentors" :key="mentor.id" class="font-roboto" :value="mentor.id">
+              {{ mentor.leaderName }}
+            </option>
+          </select>
           <i class="fa-check-circle"><fa :icon="['fas', 'check-circle']" /></i>
           <i class="fa-exclamation-circle"><fa :icon="['fas', 'exclamation-circle']" /></i>
           <small class="absolute text-left block">Only alphabets are accepted for name</small>
@@ -28,6 +24,10 @@ import FormContainerLeft from './FormContainerLeft.vue';
 import { computed, ref } from 'vue';
 import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
+import type { MentorDataResponse } from '../../lib/form/types/MentorResponse';
+import { getListOfMentors } from '../../lib/form/mentor';
+
+const mentors = ref<MentorDataResponse>();
 
 const pktb = computed(() => sessionStorage.getItem('form.pktb') ?? '');
 
@@ -35,14 +35,15 @@ const hasError = ref<formInputs>({
   pktb: false,
 });
 
-const checkPKTB = (e: Event) => {
-  sessionStorage.setItem('form.pktb', (e.target as HTMLInputElement).value);
-  const names = pktb.value.trim().split(' ');
-
-  const isNameValid = names.every((name) => alphabetOnlyValidation(name));
-
-  isNameValid ? (hasError.value.pktb = false) : (hasError.value.pktb = true);
+const populateMentors = async (): Promise<void> => {
+  mentors.value = await getListOfMentors();
 };
+
+const updatePKTB = (e: Event) => {
+  sessionStorage.setItem('form.pktb', (e.target as HTMLInputElement).value);
+};
+
+populateMentors();
 </script>
 
 <style>
