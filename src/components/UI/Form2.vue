@@ -17,7 +17,7 @@
           </option>
         </datalist>
         <label class="text-left block mt-6 mb-2" for="sekolah"> SEKOLAH </label>
-        <input v-model="selectedSchool" type="search" list="sekolah" required />
+        <input v-model="selectedSchool" type="search" list="sekolah" required @change="updateSchool" />
         <datalist id="sekolah">
           <option v-for="school in schoolsData?.data" :key="school.id" :value="school.id">
             {{ school.sekolah }}
@@ -26,7 +26,7 @@
       </FormContainerLeft>
       <FormContainerRight>
         <label class="text-left block mt-6 mb-2" for="sekolah"> GEREJA </label>
-        <input v-model="selectedChurch" type="search" list="gereja" required />
+        <input v-model="selectedChurch" type="search" list="gereja" required @change="updateChurch" />
         <datalist id="gereja">
           <option v-for="(church, index) in churchesData?.data" :key="index" :value="church">
             {{ church }}
@@ -44,7 +44,7 @@ import FormContainerRight from './FormContainerRight.vue';
 import { getListOfProvinces, getListOfCities } from '../../lib/form/regionalData';
 import { getListOfSchools } from '../../lib/form/school';
 import { getListOfChurches } from '../../lib/form/church';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { RegionalDataResponse } from '../../lib/form/types/RegionalResponse';
 import type { SchoolResponse } from '../../lib/form/types/SchoolResponse';
 import type { ChurchResponse } from '../../lib/form/types/ChurchResponse';
@@ -63,13 +63,23 @@ const populateProvince = async (): Promise<void> => {
   provinceData.value = await getListOfProvinces();
 };
 
-const populateCity = async (): Promise<void> => {
+const populateCity = async (e: Event): Promise<void> => {
+  sessionStorage.setItem('form.province', (e.target as HTMLInputElement).value);
   citiesData.value = await getListOfCities(selectedProvince.value);
 };
 
-const populateSchoolsAndChurches = async (): Promise<void> => {
+const populateSchoolsAndChurches = async (e: Event): Promise<void> => {
+  sessionStorage.setItem('form.city', (e.target as HTMLInputElement).value);
   schoolsData.value = await getListOfSchools(selectedCity.value);
   churchesData.value = await getListOfChurches(selectedCity.value);
+};
+
+const updateChurch = async (e: Event) => {
+  sessionStorage.setItem('form.church', (e.target as HTMLInputElement).value);
+};
+
+const updateSchool = async (e: Event) => {
+  sessionStorage.setItem('form.school', (e.target as HTMLInputElement).value);
 };
 
 populateProvince();
