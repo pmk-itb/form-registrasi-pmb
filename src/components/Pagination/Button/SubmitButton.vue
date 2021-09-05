@@ -54,10 +54,10 @@ const onClickHandler = async () => {
   };
   try {
     await submitForm(data);
+    router.push({ path: '/thankyou' });
+    sessionStorage.clear();
   } catch (e) {
     alert('NIM yang Anda masukkan sudah terdaftar.');
   }
-  router.push({ path: '/thankyou' });
-  sessionStorage.clear();
 };
 </script>
