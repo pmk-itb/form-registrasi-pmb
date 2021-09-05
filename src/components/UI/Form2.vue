@@ -2,33 +2,33 @@
   <FormContainer>
     <form action="/Form3" method="GET">
       <FormContainerLeft>
-        <label class="text-left block mt-6 mb-2" for="prov"> PROVINSI </label>
-        <input v-model="selectedProvince" type="search" list="prov" required @change="populateCity" />
-        <datalist id="prov">
-          <option v-for="province in provinceData?.data" :key="province.id" :value="province.id">
-            {{ province.nama }}
-          </option>
-        </datalist>
-        <label class="text-left block mt-6 mb-2" for="kota"> KOTA </label>
-        <input v-model="selectedCity" type="search" list="kota" required @change="populateSchoolsAndChurches" />
-        <datalist id="kota">
-          <option v-for="city in citiesData?.data" :key="city.id" :value="city.id">
-            {{ city.nama }}
-          </option>
-        </datalist>
+        <div class="form-control">
+          <label class="text-left block mt-6 mb-2 form-control" for="prov"> PROVINSI </label>
+          <select id="prov" v-model="selectedProvince" required name="prov" @change="populateCity">
+            <option v-for="province in provinceData?.data" :key="province.id" :value="province.id">
+              {{ province.nama }}
+            </option>
+          </select>
+          <label class="text-left block mt-6 mb-2 form-control" for="kota"> KOTA </label>
+          <select id="kota" v-model="selectedCity" required name="kota" @change="populateSchoolsAndChurches">
+            <option v-for="city in citiesData?.data" :key="city.id" :value="city.id">
+              {{ city.nama }}
+            </option>
+          </select>
+        </div>
         <label class="text-left block mt-6 mb-2" for="sekolah"> SEKOLAH </label>
         <input v-model="selectedSchool" type="search" list="sekolah" required @change="updateSchool" />
         <datalist id="sekolah">
-          <option v-for="school in schoolsData?.data" :key="school.id" :value="school.id">
+          <option v-for="school in schoolsData?.data" :key="school.id">
             {{ school.sekolah }}
           </option>
         </datalist>
       </FormContainerLeft>
       <FormContainerRight>
-        <label class="text-left block mt-6 mb-2" for="sekolah"> GEREJA </label>
+        <label class="text-left block mt-6 mb-2" for="gereja"> GEREJA </label>
         <input v-model="selectedChurch" type="search" list="gereja" required @change="updateChurch" />
         <datalist id="gereja">
-          <option v-for="(church, index) in churchesData?.data" :key="index" :value="church">
+          <option v-for="(church, index) in churchesData?.data" :key="index">
             {{ church }}
           </option>
         </datalist>
@@ -59,17 +59,22 @@ const selectedCity = ref();
 const selectedSchool = ref();
 const selectedChurch = ref();
 
+const getText = (e: Event) => {
+  const el = e.target as HTMLSelectElement;
+  return el.options[el.selectedIndex].text;
+};
+
 const populateProvince = async (): Promise<void> => {
   provinceData.value = await getListOfProvinces();
 };
 
 const populateCity = async (e: Event): Promise<void> => {
-  sessionStorage.setItem('form.province', (e.target as HTMLInputElement).value);
+  sessionStorage.setItem('form.province', getText(e));
   citiesData.value = await getListOfCities(selectedProvince.value);
 };
 
 const populateSchoolsAndChurches = async (e: Event): Promise<void> => {
-  sessionStorage.setItem('form.city', (e.target as HTMLInputElement).value);
+  sessionStorage.setItem('form.city', getText(e));
   schoolsData.value = await getListOfSchools(selectedCity.value);
   churchesData.value = await getListOfChurches(selectedCity.value);
 };

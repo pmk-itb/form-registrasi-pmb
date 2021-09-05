@@ -5,7 +5,7 @@
         <div id="v-model-basic" class="form-control mt-6 mb-2" :class="{ error: hasError.pktb }">
           <label class="text-left block form-control" for="pktb"> NAMA PKTB </label>
           <select id="pktb" v-model="pktb" required name="pktb" @change="updatePKTB">
-            <option v-for="mentor in mentors" :key="mentor.id" class="font-roboto" :value="mentor.id">
+            <option v-for="mentor in mentors?.data" :key="mentor.id" class="font-roboto" :value="mentor.id">
               {{ mentor.leaderName }}
             </option>
           </select>
