@@ -54,10 +54,10 @@ const citiesData = ref<RegionalDataResponse>();
 const schoolsData = ref<SchoolResponse>();
 const churchesData = ref<ChurchResponse>();
 
-const selectedProvince = ref();
-const selectedCity = ref();
-const selectedSchool = ref();
-const selectedChurch = ref();
+const selectedProvince = ref(sessionStorage.getItem('form.provinceId') ?? '');
+const selectedCity = ref(sessionStorage.getItem('form.cityId') ?? '');
+const selectedSchool = ref(sessionStorage.getItem('form.school') ?? '');
+const selectedChurch = ref(sessionStorage.getItem('form.church') ?? '');
 
 const getText = (e: Event) => {
   const el = e.target as HTMLSelectElement;
@@ -68,13 +68,19 @@ const populateProvince = async (): Promise<void> => {
   provinceData.value = await getListOfProvinces();
 };
 
-const populateCity = async (e: Event): Promise<void> => {
-  sessionStorage.setItem('form.province', getText(e));
+const populateCity = async (e?: Event): Promise<void> => {
+  if (e) {
+    sessionStorage.setItem('form.province', getText(e));
+    sessionStorage.setItem('form.provinceId', (e.target as HTMLSelectElement).value);
+  }
   citiesData.value = await getListOfCities(selectedProvince.value);
 };
 
-const populateSchoolsAndChurches = async (e: Event): Promise<void> => {
-  sessionStorage.setItem('form.city', getText(e));
+const populateSchoolsAndChurches = async (e?: Event): Promise<void> => {
+  if (e) {
+    sessionStorage.setItem('form.city', getText(e));
+    sessionStorage.setItem('form.cityId', (e.target as HTMLSelectElement).value);
+  }
   schoolsData.value = await getListOfSchools(selectedCity.value);
   churchesData.value = await getListOfChurches(selectedCity.value);
 };
@@ -88,6 +94,8 @@ const updateSchool = async (e: Event) => {
 };
 
 populateProvince();
+populateCity();
+populateSchoolsAndChurches();
 </script>
 
 <style>
