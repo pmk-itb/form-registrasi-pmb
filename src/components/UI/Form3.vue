@@ -26,6 +26,7 @@ import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 import type { MentorDataResponse } from '../../lib/form/types/MentorResponse';
 import { getListOfMentors } from '../../lib/form/mentor';
+import nprogress from 'nprogress';
 
 const mentors = ref<MentorDataResponse>();
 
@@ -43,7 +44,9 @@ const updatePKTB = (e: Event) => {
   sessionStorage.setItem('form.pktb', (e.target as HTMLInputElement).value);
 };
 
+nprogress.start();
 populateMentors();
+nprogress.done();
 </script>
 
 <style>

@@ -9,6 +9,7 @@ import './assets/font.css';
 import './assets/index.css';
 import router from './router';
 import store from './store';
+import 'nprogress/nprogress.css';
 
 library.add(faFacebookF, faLine, faTwitter, faInstagram);
 library.add(faChevronRight, faChevronLeft, faCheck);

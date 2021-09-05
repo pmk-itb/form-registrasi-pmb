@@ -15,6 +15,7 @@
 import submitForm from '../../../lib/form/submitForm';
 import { computed } from 'vue';
 import router from '../../../router';
+import nprogress from 'nprogress';
 
 const name = computed(() => sessionStorage.getItem('form.fullname') ?? '').value;
 const nickname = computed(() => sessionStorage.getItem('form.nickname') ?? '').value;
@@ -52,12 +53,17 @@ const onClickHandler = async () => {
     parentRelationship,
     discipleshipId: parseInt(discipleshipId),
   };
+  nprogress.start();
+  // dibuat try except buat nangkep error dari request
   try {
     await submitForm(data);
     router.push({ path: '/thankyou' });
     sessionStorage.clear();
   } catch (e) {
-    alert('NIM yang Anda masukkan sudah terdaftar.');
+    // gajadi alert nim sama, karena tadi validasinya bisa lolos,
+    // jadi bad request pas semuanya kosong
+    alert(e);
   }
+  nprogress.done();
 };
 </script>

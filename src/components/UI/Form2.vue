@@ -16,9 +16,9 @@
             </option>
           </select>
         </div>
-        <label class="text-left block mt-6 mb-2" for="sekolah"> SEKOLAH </label>
-        <input v-model="selectedSchool" type="search" list="sekolah" required @change="updateSchool" />
-        <datalist id="sekolah">
+        <label class="text-left block mt-6 mb-2" for="school"> SEKOLAH </label>
+        <input v-model="selectedSchool" type="search" list="school" required @change="updateSchool" />
+        <datalist id="school">
           <option v-for="school in schoolsData?.data" :key="school.id">
             {{ school.sekolah }}
           </option>
@@ -48,6 +48,7 @@ import { computed, ref } from 'vue';
 import type { RegionalDataResponse } from '../../lib/form/types/RegionalResponse';
 import type { SchoolResponse } from '../../lib/form/types/SchoolResponse';
 import type { ChurchResponse } from '../../lib/form/types/ChurchResponse';
+import nprogress from 'nprogress';
 
 const provinceData = ref<RegionalDataResponse>();
 const citiesData = ref<RegionalDataResponse>();
@@ -73,7 +74,9 @@ const populateCity = async (e?: Event): Promise<void> => {
     sessionStorage.setItem('form.province', getText(e));
     sessionStorage.setItem('form.provinceId', (e.target as HTMLSelectElement).value);
   }
+  nprogress.start();
   citiesData.value = await getListOfCities(selectedProvince.value);
+  nprogress.done();
 };
 
 const populateSchoolsAndChurches = async (e?: Event): Promise<void> => {
@@ -81,8 +84,10 @@ const populateSchoolsAndChurches = async (e?: Event): Promise<void> => {
     sessionStorage.setItem('form.city', getText(e));
     sessionStorage.setItem('form.cityId', (e.target as HTMLSelectElement).value);
   }
+  nprogress.start();
   schoolsData.value = await getListOfSchools(selectedCity.value);
   churchesData.value = await getListOfChurches(selectedCity.value);
+  nprogress.done();
 };
 
 const updateChurch = async (e: Event) => {
@@ -93,9 +98,11 @@ const updateSchool = async (e: Event) => {
   sessionStorage.setItem('form.school', (e.target as HTMLInputElement).value);
 };
 
+nprogress.start();
 populateProvince();
 populateCity();
 populateSchoolsAndChurches();
+nprogress.done();
 </script>
 
 <style>
