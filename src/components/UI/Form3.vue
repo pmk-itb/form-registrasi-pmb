@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form id="form" action="/" method="GET">
+    <form id="form" action="/thankyou" method="GET" @submit="onClickHandlerSubmit">
       <FormContainerLeft>
         <div id="v-model-basic" class="form-control mt-6 mb-2" :class="{ error: hasError.pktb }">
           <label class="text-left block form-control" for="pktb"> NAMA PKTB </label>
@@ -37,6 +37,58 @@ import type { MentorDataResponse } from '../../lib/form/types/MentorResponse';
 import { getListOfMentors } from '../../lib/form/mentor';
 import nprogress from 'nprogress';
 import { useStore } from 'vuex';
+import submitForm from '../../lib/form/submitForm';
+import router from '../../router';
+
+const name = computed(() => sessionStorage.getItem('form.fullname') ?? '').value;
+const nickname = computed(() => sessionStorage.getItem('form.nickname') ?? '').value;
+const gender = computed(() => sessionStorage.getItem('form.gender') ?? '').value;
+const birthDate = computed(() => sessionStorage.getItem('form.birthDate') ?? '').value;
+const phone = computed(() => sessionStorage.getItem('form.phoneNumber') ?? '').value;
+const parentPhone = computed(() => sessionStorage.getItem('form.emergencyPhoneNumber') ?? '').value;
+const parentRelationship = computed(() => sessionStorage.getItem('form.relation') ?? '').value;
+const line = computed(() => sessionStorage.getItem('form.idLine') ?? '').value;
+const email = computed(() => sessionStorage.getItem('form.email') ?? '').value;
+const nim = computed(() => sessionStorage.getItem('form.studentId') ?? '').value;
+const majorId = computed(() => sessionStorage.getItem('form.department') ?? '').value;
+const discipleshipId = computed(() => sessionStorage.getItem('form.pktb') ?? '').value;
+const originProvince = computed(() => sessionStorage.getItem('form.province') ?? '').value;
+const originCity = computed(() => sessionStorage.getItem('form.city') ?? '').value;
+const originSchool = computed(() => sessionStorage.getItem('form.school') ?? '').value;
+const originChurch = computed(() => sessionStorage.getItem('form.church') ?? '').value;
+
+const onClickHandlerSubmit = async () => {
+  const data = {
+    nim,
+    name,
+    nickname,
+    majorId: parseInt(majorId),
+    gender,
+    birthDate,
+    line,
+    phone,
+    email,
+    originProvince,
+    originCity,
+    originSchool,
+    originChurch,
+    parentPhone,
+    parentRelationship,
+    discipleshipId: parseInt(discipleshipId),
+  };
+  nprogress.start();
+  // dibuat try except buat nangkep error dari request
+  try {
+    await submitForm(data);
+    router.push({ path: '/thankyou' });
+    sessionStorage.clear();
+  } catch (e) {
+    // gajadi alert nim sama, karena tadi validasinya bisa lolos,
+    // jadi bad request pas semuanya kosong
+    alert(e);
+  }
+  nprogress.done();
+};
 
 const store = useStore();
 
