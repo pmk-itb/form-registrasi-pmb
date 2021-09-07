@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form id="form">
+    <form id="form" @submit="onClickHandlerNext">
       <FormContainerLeft>
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.fullname }">
           <label for="fullname"> NAMA LENGKAP </label>
@@ -148,6 +148,9 @@
           <small>Error Message</small>
         </div>
       </FormContainerRight>
+      <div class="button-container">
+        <input class="next" type="submit" value="Next" />
+      </div>
     </form>
   </FormContainer>
 </template>
@@ -161,7 +164,13 @@ import { alphabetOnlyValidation, numericOnlyValidation, emailValidation } from '
 import type { formInputs } from '../../types/formInputs';
 import { departments } from '../../constants/form/departments';
 import { relationships } from '../../constants/form/relationship';
+import { useStore } from 'vuex';
 
+const store = useStore();
+
+const onClickHandlerNext = () => {
+  store.commit('pages/NEXT_PAGE');
+};
 const fullname = computed(() => sessionStorage.getItem('form.fullname') ?? '');
 const nickname = computed(() => sessionStorage.getItem('form.nickname') ?? '');
 const gender = computed(() => sessionStorage.getItem('form.gender') ?? '');
@@ -356,5 +365,29 @@ input[type='date'] {
   visibility: visible;
   position: absolute;
   top: 3rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  height: auto;
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.next {
+  color: #4d76b7;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 0.188rem solid #4d76b7;
+  background: white;
+  width: 8rem;
+  height: 2rem;
+  align-self: flex-end;
+}
+
+.next:hover {
+  border: 0.2rem solid #91b1e2;
 }
 </style>

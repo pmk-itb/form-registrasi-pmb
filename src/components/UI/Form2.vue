@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form action="/Form3" method="GET">
+    <form method="GET" @submit="onClickHandlerNext">
       <FormContainerLeft>
         <div class="form-control">
           <label class="text-left block mt-6 mb-2 form-control" for="prov"> PROVINSI </label>
@@ -33,6 +33,14 @@
           </option>
         </datalist>
       </FormContainerRight>
+      <div class="button-container2">
+        <div style="width: 50%; padding-top: 3rem">
+          <a class="text-sm font-bold text-blue-primary hover:underline" @click="onClickHandlerBack"> &lt; Back </a>
+        </div>
+        <div style="display: flex; flex-direction: column; width: 50%">
+          <input class="next" type="submit" value="Next" />
+        </div>
+      </div>
     </form>
   </FormContainer>
 </template>
@@ -49,6 +57,17 @@ import type { RegionalDataResponse } from '../../lib/form/types/RegionalResponse
 import type { SchoolResponse } from '../../lib/form/types/SchoolResponse';
 import type { ChurchResponse } from '../../lib/form/types/ChurchResponse';
 import nprogress from 'nprogress';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const onClickHandlerNext = () => {
+  store.commit('pages/NEXT_PAGE');
+};
+
+const onClickHandlerBack = () => {
+  store.commit('pages/PREV_PAGE');
+};
 
 const provinceData = ref<RegionalDataResponse>();
 const citiesData = ref<RegionalDataResponse>();
@@ -117,5 +136,28 @@ select {
   width: 100%;
   height: 1.6rem;
   margin-top: 12rem;
+}
+
+.button-container2 {
+  display: flex;
+  align-self: flex-end;
+  height: auto;
+  width: 100%;
+}
+
+.next {
+  color: #4d76b7;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 0.188rem solid #4d76b7;
+  background: white;
+  width: 8rem;
+  height: 2rem;
+  margin-top: 3rem;
+  align-self: flex-end;
+}
+
+.next:hover {
+  border: 0.2rem solid #91b1e2;
 }
 </style>

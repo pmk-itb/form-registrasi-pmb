@@ -14,6 +14,14 @@
           <small class="absolute text-left block">Only alphabets are accepted for name</small>
         </div>
       </FormContainerLeft>
+      <div class="button-container2">
+        <div style="width: 50%; padding-top: 3rem">
+          <a class="text-sm font-bold text-blue-primary hover:underline" @click="onClickHandlerBack"> &lt; Back </a>
+        </div>
+        <div style="display: flex; flex-direction: column; width: 50%">
+          <input class="submit" type="submit" value="Submit" />
+        </div>
+      </div>
     </form>
   </FormContainer>
 </template>
@@ -21,12 +29,20 @@
 <script setup lang="ts">
 import FormContainer from './FormContainer.vue';
 import FormContainerLeft from './FormContainerLeft.vue';
+import FormContainerRight from './FormContainerRight.vue';
 import { computed, ref } from 'vue';
 import { alphabetOnlyValidation } from '../../lib/validation/inputValidation';
 import type { formInputs } from '../../types/formInputs';
 import type { MentorDataResponse } from '../../lib/form/types/MentorResponse';
 import { getListOfMentors } from '../../lib/form/mentor';
 import nprogress from 'nprogress';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const onClickHandlerBack = () => {
+  store.commit('pages/PREV_PAGE');
+};
 
 const mentors = ref<MentorDataResponse>();
 
@@ -121,5 +137,26 @@ input[type='text'] {
   visibility: visible;
   position: absolute;
   top: 4rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  height: auto;
+  width: 100%;
+}
+
+.submit {
+  font-family: Roboto;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 0.188rem solid #4d76b7;
+  background: #4d76b7;
+  width: 8rem;
+  height: 2rem;
+  margin-top: 3rem;
+  align-self: flex-end;
 }
 </style>

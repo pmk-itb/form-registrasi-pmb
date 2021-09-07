@@ -16,7 +16,7 @@
       <template v-else>
         <Form3 key="form3" />
       </template>
-      <FormNavigateButtonGroup />
+      <!-- <FormNavigateButtonGroup /> -->
     </FloatingBox>
     <Footer />
   </div>
