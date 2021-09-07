@@ -2,7 +2,6 @@
   <div
     class="flex w-9 h-9 border-2 rounded-md justify-center items-center border-gray-primary text-base font-medium hover:cursor-pointer"
     :class="{ 'bg-blue-primary text-white': active, 'text-gray-500': !active }"
-    @click="onClickHandler"
   >
     {{ number }}
   </div>
