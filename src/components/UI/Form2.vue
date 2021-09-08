@@ -16,6 +16,8 @@
             </option>
           </select>
         </div>
+      </FormContainerLeft>
+      <FormContainerRight>
         <label class="text-left block mt-6 mb-2" for="school"> SEKOLAH </label>
         <input v-model="selectedSchool" type="search" list="school" required @change="updateSchool" />
         <datalist id="school">
@@ -23,8 +25,6 @@
             {{ school.sekolah }}
           </option>
         </datalist>
-      </FormContainerLeft>
-      <FormContainerRight>
         <label class="text-left block mt-6 mb-2" for="gereja"> GEREJA </label>
         <input v-model="selectedChurch" type="search" list="gereja" required @change="updateChurch" />
         <datalist id="gereja">
