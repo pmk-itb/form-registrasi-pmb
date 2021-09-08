@@ -17,7 +17,7 @@
           </select>
         </div>
         <label class="text-left block mt-6 mb-2" for="school"> SEKOLAH </label>
-        <input v-model="selectedSchool" type="search" list="school" required @change="updateSchool" />
+        <input list="school" type="search" required @change="updateSchool" />
         <datalist id="school">
           <option v-for="school in schoolsData?.data" :key="school.id">
             {{ school.sekolah }}
