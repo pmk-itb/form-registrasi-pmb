@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form id="form" method="GET" @submit="onClickHandlerNext">
+    <form id="form" @submit="onClickHandlerNext">
       <FormContainerLeft>
         <div class="form-control">
           <label class="text-left block mt-6 mb-2 form-control" for="prov"> PROVINSI </label>

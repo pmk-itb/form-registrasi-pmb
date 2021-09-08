@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form id="form" method="GET" @submit="onClickHandlerNext">
+    <form id="form" @submit="onClickHandlerNext">
       <FormContainerLeft>
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.fullname }">
           <label for="fullname"> NAMA LENGKAP </label>
