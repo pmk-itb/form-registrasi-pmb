@@ -1,6 +1,6 @@
 <template>
   <FormContainer>
-    <form id="form" action="/Form2" method="GET">
+    <form id="form" @submit="onClickHandlerNext">
       <FormContainerLeft>
         <div id="v-model-basic" class="form-control" :class="{ error: hasError.fullname }">
           <label for="fullname"> NAMA LENGKAP </label>
@@ -148,6 +148,9 @@
           <small>Error Message</small>
         </div>
       </FormContainerRight>
+      <div class="button-container">
+        <input class="next" type="submit" value="Next" />
+      </div>
     </form>
   </FormContainer>
 </template>
@@ -162,22 +165,23 @@ import type { formInputs } from '../../types/formInputs';
 import { departments } from '../../constants/form/departments';
 import { relationships } from '../../constants/form/relationship';
 import { useStore } from 'vuex';
-import updateEvent, { formInputUpdateType } from '../../storeHandler/form/updateData';
-import form from '../../store/modules/form';
 
 const store = useStore();
 
-const fullname = computed(() => store.state.form.fullname);
-const nickname = computed(() => store.state.form.nickname);
-const gender = computed(() => store.state.form.gender);
-const birthDate = computed(() => store.state.form.birthDate);
-const phoneNumber = computed(() => store.state.form.phoneNumber);
-const emergencyPhoneNumber = computed(() => store.state.form.emergencyPhoneNumber);
-const relation = computed(() => store.state.form.relation);
-const idLine = computed(() => store.state.form.idLine);
-const email = computed(() => store.state.form.email);
-const studentId = computed(() => store.state.form.studentId);
-const department = computed(() => store.state.form.department);
+const onClickHandlerNext = () => {
+  store.commit('pages/NEXT_PAGE');
+};
+const fullname = computed(() => sessionStorage.getItem('form.fullname') ?? '');
+const nickname = computed(() => sessionStorage.getItem('form.nickname') ?? '');
+const gender = computed(() => sessionStorage.getItem('form.gender') ?? '');
+const birthDate = computed(() => sessionStorage.getItem('form.birthDate') ?? '');
+const phoneNumber = computed(() => sessionStorage.getItem('form.phoneNumber') ?? '');
+const emergencyPhoneNumber = computed(() => sessionStorage.getItem('form.emergencyPhoneNumber') ?? '');
+const relation = computed(() => sessionStorage.getItem('form.relation') ?? '');
+const idLine = computed(() => sessionStorage.getItem('form.idLine') ?? '');
+const email = computed(() => sessionStorage.getItem('form.email') ?? '');
+const studentId = computed(() => sessionStorage.getItem('form.studentId') ?? '');
+const department = computed(() => sessionStorage.getItem('form.department') ?? '');
 
 const hasError = ref<formInputs>({
   fullname: false,
@@ -195,7 +199,7 @@ const hasError = ref<formInputs>({
 
 const checkName = (e: Event) => {
   const names = (e.target as HTMLInputElement).value.trim();
-  updateEvent(store, formInputUpdateType.fullname, names);
+  sessionStorage.setItem('form.fullname', names);
 
   const isNameValid = names.split(' ').every((name) => alphabetOnlyValidation(name));
 
@@ -204,7 +208,7 @@ const checkName = (e: Event) => {
 
 const checkNickName = (e: Event) => {
   const nickname = (e.target as HTMLInputElement).value.trim();
-  updateEvent(store, formInputUpdateType.nickname, nickname);
+  sessionStorage.setItem('form.nickname', nickname);
 
   const isNickValid = nickname.split(' ').every((nick) => alphabetOnlyValidation(nick));
 
@@ -212,16 +216,16 @@ const checkNickName = (e: Event) => {
 };
 
 const updateGender = (e: Event) => {
-  updateEvent(store, formInputUpdateType.gender, (e.target as HTMLInputElement).value);
+  sessionStorage.setItem('form.gender', (e.target as HTMLInputElement).value);
 };
 
 const updateBirthDate = (e: Event) => {
-  updateEvent(store, formInputUpdateType.birthDate, (e.target as HTMLInputElement).value);
+  sessionStorage.setItem('form.birthDate', (e.target as HTMLInputElement).value);
 };
 
 const checkPhoneNumber = (e: Event) => {
   const phone = (e.target as HTMLInputElement).value.trim().replace(/\+62/, '0');
-  updateEvent(store, formInputUpdateType.phoneNumber, phone);
+  sessionStorage.setItem('form.phoneNumber', phone);
 
   const isPhoneValid = numericOnlyValidation(phone);
 
@@ -230,7 +234,7 @@ const checkPhoneNumber = (e: Event) => {
 
 const checkEmergencyNumber = (e: Event) => {
   const emergencyphone = (e.target as HTMLInputElement).value.trim().replace(/\+62/, '0');
-  updateEvent(store, formInputUpdateType.emergencyPhoneNumber, emergencyphone);
+  sessionStorage.setItem('form.emergencyPhoneNumber', emergencyphone);
 
   const isEmergencyValid = numericOnlyValidation(emergencyphone);
 
@@ -238,17 +242,17 @@ const checkEmergencyNumber = (e: Event) => {
 };
 
 const updateRelation = (e: Event) => {
-  updateEvent(store, formInputUpdateType.relation, (e.target as HTMLSelectElement).value);
+  sessionStorage.setItem('form.relation', (e.target as HTMLSelectElement).value);
 };
 
 const checkIdLine = (e: Event) => {
   const idLine = (e.target as HTMLInputElement).value.trim().replace(/@/, '');
-  updateEvent(store, formInputUpdateType.idLine, idLine);
+  sessionStorage.setItem('form.idLine', idLine);
 };
 
 const checkEmail = (e: Event) => {
   const mail = (e.target as HTMLInputElement).value.trim();
-  updateEvent(store, formInputUpdateType.email, mail);
+  sessionStorage.setItem('form.email', mail);
 
   const isEmailValid = emailValidation(mail);
 
@@ -256,12 +260,12 @@ const checkEmail = (e: Event) => {
 };
 
 const updateDepartment = (e: Event) => {
-  updateEvent(store, formInputUpdateType.department, (e.target as HTMLSelectElement).value);
+  sessionStorage.setItem('form.department', (e.target as HTMLSelectElement).value);
 };
 
 const checknim = (e: Event) => {
   const nim = (e.target as HTMLInputElement).value.trim();
-  updateEvent(store, formInputUpdateType.studentId, nim);
+  sessionStorage.setItem('form.studentId', nim);
 
   const isNIMValid = numericOnlyValidation(nim);
 
@@ -361,5 +365,29 @@ input[type='date'] {
   visibility: visible;
   position: absolute;
   top: 3rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  height: auto;
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.next {
+  color: #4d76b7;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 0.188rem solid #4d76b7;
+  background: white;
+  width: 8rem;
+  height: 2rem;
+  align-self: flex-end;
+}
+
+.next:hover {
+  border: 0.2rem solid #91b1e2;
 }
 </style>
